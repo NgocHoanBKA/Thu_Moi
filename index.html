@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Pink Date Invite 💕</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  background:linear-gradient(180deg,#ffd6e8,#ffedf4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:'Inter',sans-serif;
+  overflow:hidden;
+}
+
+/* HEART FALL */
+.fall-heart{
+  position:absolute;
+  top:-20px;
+  font-size:14px;
+  opacity:.5;
+  animation:fall linear forwards;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh);
+    opacity:0;
+  }
+}
+
+/* HEART BURST */
+.burst{
+  position:absolute;
+  font-size:22px;
+  animation:burst 1.2s ease-out forwards;
+}
+
+@keyframes burst{
+  0%{transform:scale(0);}
+  70%{transform:scale(1.4);}
+  100%{opacity:0; transform:scale(2);}
+}
+
+/* CARD */
+.card{
+  width:340px;
+  height:540px;
+  perspective:2000px;
+}
+
+.card-inner{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  transition:1.6s ease;
+}
+
+.card.open .card-inner{
+  transform:rotateY(180deg);
+}
+
+/* FRONT */
+.front{
+  position:absolute;
+  inset:0;
+  background:rgba(255,255,255,.8);
+  backdrop-filter:blur(12px);
+  border-radius:28px;
+  box-shadow:0 25px 70px rgba(0,0,0,.18);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  backface-visibility:hidden;
+}
+
+.front p{
+  font-size:13px;
+  color:#ff7fa3;
+  margin-bottom:50px;
+}
+
+.heart-btn{
+  width:60px;
+  height:60px;
+  background:#ff6fa5;
+  transform:rotate(-45deg);
+  position:relative;
+  cursor:pointer;
+}
+
+.heart-btn::before,
+.heart-btn::after{
+  content:"";
+  position:absolute;
+  width:60px;
+  height:60px;
+  background:#ff6fa5;
+  border-radius:50%;
+}
+
+.heart-btn::before{top:-30px;}
+.heart-btn::after{left:30px;}
+
+/* BACK */
+.back{
+  
+  inset:0;
+  background:#fff;
+  border-radius:28px;
+  backface-visibility:hidden;
+  transform:rotateY(180deg);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+
+/* IMAGE */
+.image{
+  height:55%;
+}
+
+.image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* CONTENT */
+.content{
+  padding:20px;
+}
+
+.ask{
+  font-family:'Playfair Display',serif;
+  font-size:17px;
+  color:#ff5f93;
+  line-height:1.4;
+  margin-bottom:14px;
+}
+
+.schedule{
+  font-size:13px;
+  color:#666;
+  line-height:1.7;
+  font-family:serif;
+}
+
+/* AGREE BUTTON */
+.agree{
+  margin-top:18px;
+  margin-left: 85px;
+  padding:10px 20px;
+  border:none;
+  border-radius:24px;
+  background:#ff7fa3;
+  color:#fff;
+  font-size:13px;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+  <div class="card-inner">
+
+    <!-- FRONT -->
+    <div class="front">
+      <p>Tap nhẹ vào trái tim nha 💕</p>
+      <div class="heart-btn" onclick="openCard()"></div>
+    </div>
+
+    <!-- BACK -->
+    <div class="back">
+      <div class="image">
+        <img src="anhNY.jpg">
+      </div>
+
+      <div class="content">
+        <div class="ask">
+          Em có muốn<br>
+          đi cùng anh<br>
+          trong chuyến hẹn hò nhỏ này không? 💗
+        </div>
+
+        <div class="schedule">
+          🌸 Sáng mình đi chùa cùng nhau<br>
+          🛒 Rồi ghé chợ mua vài món nhỏ<br>
+          🍽️ Trưa mình ăn cùng nhau nhé<br>
+          🌊 Chiều mình đến Ocean Park nghỉ ngơi<br><br>
+          🤍 Chủ nhật chỉ cần ở bên nhau
+        </div>
+
+        <button class="agree" onclick="openCard()">Em đồng ý 🤍</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function openCard(){
+  document.getElementById("card").classList.add("open");
+  startHeartRain();
+}
+
+/* HEART RAIN WHEN OPEN */
+function startHeartRain(){
+  for(let i=0;i<35;i++){
+    const h=document.createElement("div");
+    h.className="fall-heart";
+    h.innerHTML="💗";
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=12+Math.random()*10+"px";
+    h.style.animationDuration=4+Math.random()*4+"s";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),8000);
+  }
+}
+
+/* HEART BURST WHEN AGREE */
+function agree(){
+  for(let i=0;i<28;i++){
+    const b=document.createElement("div");
+    b.className="burst";
+    b.innerHTML="💖";
+    b.style.left="50%";
+    b.style.top="50%";
+    b.style.transform=`translate(${Math.random()*240-120}px,${Math.random()*240-120}px)`;
+    document.body.appendChild(b);
+    setTimeout(()=>b.remove(),1200);
+  }
+}
+</script>
+
+</body>
+</html>
